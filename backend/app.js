@@ -16,7 +16,7 @@ log.connect(function(err){
         throw err
     }
     else{
-        console.log("Connexion à MySQL réussie !")
+        console.log("Connected as id " + log.threadId)
     }
 });
 
