@@ -1,0 +1,83 @@
+/*******
+** COLORS
+** FD2D01 => Orange
+** FFD7D7 => Light orange
+**/
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.login-img .img{
+    width: 400px;
+    height: 400px;
+}
+
+
+.login-form{
+    display: flex;
+    justify-content: center;
+
+}
+
+.login-form input{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    padding: 10px;
+    border: none;
+    border-bottom: solid 1px #FFD7D7;
+    font-size: 24px;
+    text-align: center;
+}
+
+input:focus{
+    outline: none !important;
+    border: none;
+    border-bottom: solid 1px #FD2D01;
+    transition: all 0.25s;
+}
+
+.login-btn-submit{
+    background-color: #FFD7D7;
+    transition: linear 0.15s;
+    border-radius: 5px;
+}
+
+.login-btn-submit:hover{
+    background-color: #FD2D01;
+    color: #FFFFFF;
+    transition: linear 0.15s;
+}
+
+.login-link{
+    text-decoration: none;
+    font-size: 1.25em;
+    color: #1f1f1f;
+    transition: 0.25s;
+}
+
+.login-link:hover{
+    color: #FD2D01;
+}
+
+/*********** MEDIA QUERIES ************/
+
+@media screen and (max-width: 480px) {
+    .login-img .img{
+        width: 250px;
+        height: 250px;
+    }
+
+    .login-form input{
+        width: 250px;
+        font-size: 20px;
+    }
+
+}
