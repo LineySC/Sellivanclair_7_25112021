@@ -1,0 +1,32 @@
+#themeName {
+    background-color: var(--background-color);
+    transition: 0.5s;
+}
+
+.theme-light {
+    --background-color: #FFFFFF;
+    --icon-color: #2d3142;
+}
+
+.theme-dark {
+    --background-color: #2d3142;
+    --icon-color: #FFFFFF;
+}
+
+.container-toggle{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+
+.container-toggle button{
+    border: none;
+    background: none;
+}
+
+.icon-theme{
+    color: var(--icon-color);
+    font-size: 50px;
+    cursor: pointer;
+}

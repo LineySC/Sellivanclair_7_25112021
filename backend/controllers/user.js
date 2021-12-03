@@ -1,29 +1,15 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const mysql = require('mysql');
+const db = require('./../config/db');
 
-const log = mysql.createConnection({
-    host: process.env.BDD_HOST,
-    user: process.env.BDD_USER,
-    password: process.env.BDD_PASSWORD,
-    database: process.env.BDD_DATABASE
-});
-
-log.connect(function(err){
-    if(err) {
-        throw err
-    }
-    else{
-        console.log("MySQL connected")
-    }
-});
 
 exports.register = (req, res, next) => {
+    
     req.body.email = req.body.email.toLowerCase();
 
     bcrypt.hash(req.body.password, 15)
         .then(hash => {
-            const user = log.query(
+            const user = db.query(
                 `INSERT INTO user (nom, prenom, email, password) VALUES ('${req.body.nom}', '${req.body.prenom}', '${req.body.email}', '${hash}')`
             )
             user.save()
@@ -35,28 +21,31 @@ exports.register = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
-    req.body.email = req.body.email.toLowerCase();
+    
+    req.body.user.email = req.body.user.email.toLowerCase();
 
-        log.query(`SELECT * FROM user WHERE email = '${req.body.email}'`, function(err, result, fields) {
+       db.query(`SELECT * FROM user WHERE email = '${req.body.user.email}'`, function(err, result) {
             if (err) throw err
             else{
-            
+                
                 const user = result[0];
-
-                if(req.body.email == user.email){
-                    bcrypt.compare(req.body.password, user.password)
+                console.log(req.body.user.email)
+                if(req.body.user.email == user.email){
+                    bcrypt.compare(req.body.user.password, user.password)
                     .then(valid => {
                         if(!valid){
                             return res.status(400).json({message: "Le mots de passe ne correspond pas"})
                         }
-                        res.status(200).json({
-                            userId: user.id,
-                            token: jwt.sign(
-                                {userId: user.id},
-                                process.env.SECRET_TOKEN,
-                                {expiresIn: '24h'}
-                            )
-                        })
+                        else{
+                            const maxAge = 24 * 60 * 60;
+                            const token = jwt.sign(
+                                    {userId: user.id},
+                                    process.env.SECRET_TOKEN,
+                                    {expiresIn: maxAge});
+                            res.cookie('token', token, {maxAge: maxAge, httpOnly: true})
+                            res.status(200).json(token);
+
+                        }
                     })
                     .catch(err => console.log(err))
                 }

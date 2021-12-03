@@ -11,8 +11,10 @@ import {
   } from "react-router-dom";
 
 // Routes
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './components/form/Login';
+import Register from './components/form/Register';
+import Feed from './components/feed/Feed';
+import NotFound from './components/NotFound';
 
 const rootElement = document.getElementById("root");
 
@@ -23,6 +25,8 @@ render(
             <Route path="/" element={<App />} />
             <Route path="login" element={<Login />} /> 
             <Route path="register" element={<Register />} />
+            <Route path="feed" element={<Feed />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     </BrowserRouter>,
   

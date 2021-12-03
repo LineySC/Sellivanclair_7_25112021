@@ -1,34 +1,57 @@
 .register{
+    height: 100vh; /* Magic here */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.register-layout{
+    background-size: 200%;
+    background-image: linear-gradient(to right bottom, #ef8354, #cc616c, #955074, #594364, #2d3142);
+    padding: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-items: center;
+    border-radius: 15px;
+    box-shadow: #1f1f1f 1px 1px 10px;
+}
+
+.register p {
+    color: #FFFFFF;
+    font-size: 32px;
+    margin: 0 0 2.5em 0;
 }
 
 .register-img .img{
     width: 400px;
-    height: 400px;
+    height: 200px;
 }
 
 
 .register-form{
-    display: flex;
-    justify-content: center;
-
+    color: #FFFFFF;
+    font-size: 24px
 }
 
 .register-form input{
-    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
-    padding: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    width: 500px;
+    margin-bottom: 50px;
+    padding: 10px 0 10px 0;
     border: none;
-    border-bottom: solid 1px #FFD7D7;
+    border-bottom: solid 3px #2d314250 ;
     font-size: 24px;
     text-align: center;
+    color: #FFFFFF
+}
+
+.register-form input::placeholder{
+    color: #FFFFFF
 }
 
 input:focus{
@@ -38,40 +61,52 @@ input:focus{
     transition: all 0.25s;
 }
 
-.register-btn-submit{
-    background-color: #FFD7D7;
+.register-btn-submit[type="button"]{
+    background-color: #2d3142;
     transition: linear 0.15s;
     border-radius: 5px;
+    color: #FFFFFF;
+    border: none ;
+
 }
 
 .register-btn-submit:hover{
-    background-color: #FD2D01;
+    background-color: #2d314230;
     color: #FFFFFF;
-    transition: linear 0.15s;
 }
 
 .register-link{
     text-decoration: none;
     font-size: 1.25em;
-    color: #1f1f1f;
-    transition: 0.25s;
+    color: #FFFFFF;;
 }
 
 .register-link:hover{
-    color: #FD2D01;
+    color: #2d3142;
 }
 
 /*********** MEDIA QUERIES ************/
 
 @media screen and (max-width: 480px) {
+    .register-layout p{
+        font-size: 1.5em;
+        margin: -1em 0 1.5em 0;
+    }
+
     .register-img .img{
+        margin-top: -2em;
         width: 250px;
-        height: 250px;
+        height: 150px;
     }
 
     .register-form input{
         width: 250px;
         font-size: 20px;
+        padding: 0 0 5px 0;
+    }
+
+    .register-btn-submit[type="button"]{
+        padding: 10px 0 10px 0;
     }
 
 }

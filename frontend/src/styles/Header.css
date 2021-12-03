@@ -1,0 +1,37 @@
+/**
+**  COLORS
+**  Space Cadet : #2D3142
+**  Silver : #BFC0C0
+**  white : #FFFFFF
+**  Mandarin : #EF8354
+**  Independence : #4F5D75
+*/
+
+header{
+    background-color: #EF8354;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+header img{
+    width: 250px;
+    height: 100%;
+}
+
+ul li{
+    list-style: none;
+}
+
+a{
+    font-size: 24px;
+    color: #2D3142;
+    text-decoration: none;
+}
+
+@media screen and (max-width:480px) {
+    a{
+        font-size: 20px;
+    }
+}
