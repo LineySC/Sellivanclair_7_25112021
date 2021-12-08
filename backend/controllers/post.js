@@ -7,22 +7,21 @@ const db = require('./../config/db');
 
 //Tous les posts
 exports.getAllPosts = (req, res, next) => {
-    db.query(`SELECT * FROM post`, function(err, result) {
-        if(err) throw err;
-        else{
+    db.query(`SELECT * FROM post`, function (err, result) {
+        if (err) throw err;
+        else {
             res.status(200).json(result)
-            console.log(req.body.userId)
-        }
+        } 
     })
-
-    console.log(req.headers.cookie)
 }
 
+//Creation de post
 exports.createPost = (req, res, next) => {
-    db.query(`INSERT INTO post (message, auteur, date) VALUES ('${req.body.message}', '${req.body._id}', '${Date.now}')`, function(err, result) {
-        if(err) throw err;
-        else{
+    /*db.query(`INSERT INTO post (message, auteur, date) VALUES ('${req.body.message}', '${req.body._id}', '${Date.now}')`, function (err, result) {
+        if (err) throw err;
+        else {
             console.log(result)
         }
-    })
+    })*/ 
+    console.log(req)
 }

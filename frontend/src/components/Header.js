@@ -3,6 +3,8 @@ import logoHeader from './../assets/icon-left-font-monochrome-white.svg'
 import { Link } from 'react-router-dom';
 
 function Header () {
+
+    
     return (
         <header>
             <div>
@@ -10,6 +12,9 @@ function Header () {
             </div>
             <div >
                 <nav>
+                    <ul>
+                        <li><Link to='/Login' >Deconnexion</Link></li>
+                    </ul>
                     <ul>
                         <li><Link to='/profile'>Profil</Link></li> {/*Mettre nom et photo de profile */}
                     </ul>
