@@ -31,7 +31,7 @@
 
 
 /*     Formulaire      */
-.login{
+.auth{
     height: 100vh; /* Magic here */
     display: flex;
     justify-content: center;
@@ -39,7 +39,7 @@
     flex-direction: column;
 }
 
-.login-layout{
+.auth-layout{
     background-size: 200%;
     background-image: linear-gradient(to right bottom, #ef8354, #cc616c, #955074, #594364, #2d3142);
     padding: 25px;
@@ -50,24 +50,23 @@
     box-shadow: #1f1f1f 1px 1px 10px;
 }
 
-.login-layout p{
+.auth-layout p,  h2{
     color: #FFFFFF;
-    font-size: 32px;
+    font-size: 24px;
     margin: 0 0 2.5em 0;
 }
-.login-img .img{
-    width: 400px;
-    height: 200px;
+
+.auth-img .img{
+    margin: 20px 0 20px 0;
 }
 
-.login-form{
-    display: flex;
-    justify-content: center;
-    color: #FFFFFF;
-    font-size: 24px
+.auth-form{
+    border: solid 2px #2d314250;
+    border-radius: 15px;
+    padding: 20px
 }
 
-.login-form input{
+.auth-form input{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -83,8 +82,8 @@
     color: #FFFFFF
 }
 
-.login-form input::placeholder{
-    color: #FFFFFF;
+.auth-form input::placeholder{
+    color: #FFFFFF50;
 }
 
 input:focus{
@@ -94,7 +93,7 @@ input:focus{
     color:#FFFFFF;
 }
 
-.login-btn-submit[type="button"]{
+.auth-btn-submit[type="submit"]{
 
     background-color: #2d3142;
     transition: linear 0.15s;
@@ -104,35 +103,35 @@ input:focus{
     cursor: pointer;
 }
 
-.login-btn-submit:hover:active:focus{
+.auth-btn-submit:hover:active:focus{
     background-color: #2d314230;
     color: #FFFFFF;
     border: none !important;
 }
 
-.login-link{
+.auth-link{
     text-decoration: none;
     font-size: 1.25em;
     color: #FFFFFF;
 }
 
-.login-link:hover{
+.auth-link:hover{
     color: #2d3142;
 }
 
 /*********** MEDIA QUERIES ************/
 
 @media screen and (max-width: 480px) {
-    .login-layout p {
+    .auth-layout p {
         font-size: 1.5em;
     }
-    .login-img .img{
+    .auth-img .img{
         margin-top: -2em;
         width: 250px;
         height: 150px;
     }
 
-    .login-form input{
+    .auth-form input{
         width: 250px;
         font-size: 20px;
     }

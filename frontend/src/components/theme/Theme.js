@@ -1,6 +1,6 @@
 function setTheme(themeName) {
     localStorage.setItem('theme', themeName);
-    document.getElementById('themeName').className = themeName;
+    document.getElementById('root').className = themeName;
     
 }
 

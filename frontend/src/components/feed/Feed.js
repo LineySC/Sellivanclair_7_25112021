@@ -1,16 +1,14 @@
-//import './../style/Home.css';
-import Header from '../Header';
+import Header from '../header/Header';
 import Post from './Post';
-//import { Link } from 'react-router-dom';
 
-function Feed () {
+function Feed() {
     return (
-        <div>
+        <div >
             <Header />
 
             <Post />
         </div>
-        
+
     )
 }
 

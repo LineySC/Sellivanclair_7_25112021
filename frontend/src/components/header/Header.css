@@ -8,16 +8,23 @@
 */
 
 header{
-    background-color: #EF8354;
+    background: linear-gradient(to right bottom, #ef8354, #cc616c, #955074, #594364, #2d3142);
+    background-size: 250%;
     display: flex;
     justify-content: space-between;
     padding: 15px;
     margin-bottom: 20px;
+    box-shadow: 0 1px 4px #2d3142;
 }
 
 header img{
     width: 250px;
     height: 100%;
+}
+
+.layout-nav{
+    display: flex;
+    align-items: center;
 }
 
 ul li{
@@ -26,9 +33,16 @@ ul li{
 
 a{
     font-size: 24px;
-    color: #2D3142;
+    color: #FFFFFF;
     text-decoration: none;
 }
+
+a:hover{
+    color: #ffffff9f;
+    border-bottom: solid 2px #2d3142 !important;
+    padding-bottom: 5px;
+}
+
 
 @media screen and (max-width:480px) {
     a{
