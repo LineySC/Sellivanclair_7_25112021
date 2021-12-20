@@ -20,24 +20,36 @@ exports.getAllPosts = (req, res, next) => {
 
 //Creation de post
 exports.createPost = (req, res, next) => {
-    
+
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN);
     const userId = decodedToken.userId;
 
     let { body, file } = req;
-
-    const imageDest = `${ req.protocol }://${req.get('host')}/images/feed/${req.file.filename}`
+    console.log(req.body.postMessage)
     const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    if (file == undefined) {
+        db.query(`INSERT INTO post (message, auteur, date) VALUES ('${body.postMessage}', '${userId}', '${date}' )`,
 
-    db.query(`INSERT INTO post (message, auteur, date, image_path) VALUES ('${body.postMessage}', '${userId}', '${date}', '${imageDest}' )`, function (err, result) {
-        if (err) throw err;
-    })
+          function (err, result) {
+            if (err) throw err;
+        })
+    }
+    else {
+        const imageDest = `${req.protocol}://${req.get('host')}/images/feed/${req.file.filename}`;
+        db.query(`INSERT INTO post (message, auteur, date, image_path) VALUES ('${body.postMessage}', '${userId}', '${date}', '${imageDest}' )`, function (err, result) {
+            if (err) throw err;
+        })
+    }
+
 }
 
 //Delete Post
 exports.deletePost = (req, res, next) => {
-    db.query(`DELETE INTO post WHERE id = ${req.body.postId}`, function (err, result) {
+    db.query(`DELETE FROM post WHERE post_id = ${req.params.id}`, function (err, result) {
         if (err) throw err;
+        else {
+            return res.status(200)
+        }
     })
 }

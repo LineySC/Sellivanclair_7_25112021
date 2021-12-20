@@ -5,3 +5,64 @@ nav {
 a {
     color: white;
 }
+
+.isNotResponsive{
+    display: none;
+}
+
+@media screen and (max-width:480px){
+
+    .isResponsive {
+        display: none;
+    }
+
+    .isNotResponsive{display: flex;}
+    
+    .wrap-nav-hidden nav{
+        background-color: #2d3142;
+    }
+
+    .wrap-nav-hidden nav{
+        display: flex;
+        flex-direction: column;
+        position:absolute;
+        justify-content: center;
+        align-items: center;
+        left:0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 10;
+        overflow: hidden;
+    }
+
+    .wrap-nav-hidden li {
+        display: flex;
+
+        align-items: center;
+    }
+
+    .wrap-nav-hidden li i{
+        color: white;
+        font-size: 50px;
+        margin-left: 15px;
+    }
+    .wrap-nav-hidden li a{
+        color: White;
+    }
+
+#icon-nav{
+    font-size: 50px;
+}
+
+    #icon-nav-hidden{
+        position: absolute;
+        color: #FFFFFF;
+        font-size: 50px;
+        z-index: 100;
+        right: 15px;
+        top: 15px;
+
+    }
+
+}

@@ -10,13 +10,14 @@ function Auth() {
 
     let navigate = useNavigate();
     const [isHidden, setIsHidden] = useState(false);
+    const [error, setError] = useState('');
 
     //CONNECTION 
     const [user, setUser] = useState({
         email: "",
         password: ""
     })
-    const loginConnectionUrl = `http://127.0.0.1:3000/api/auth/login`;
+    const loginConnectionUrl = `http://192.168.1.64:3000/api/auth/login`;
 
     const connexion = async () => {
         try {
@@ -25,18 +26,14 @@ function Auth() {
                     user,
                 })
                 .then(res => {
-                    let token = res.data;
-                    localStorage.setItem('token', token);
+
+                    let user = res.data;
+                    localStorage.setItem('user', JSON.stringify(user));
                     navigate('/');
                 })
 
                 .catch(function (error) {
-                    if (error.response) {
-
-                        console.log(error.response.status);
-
-                    }
-                    console.log(error.response);
+                    setError(error.response.data.message)
                 })
 
         }
@@ -52,6 +49,11 @@ function Auth() {
 
     /////////////////////////// INSCRIPTION
 
+    const handleRegister = (e) => {
+        e.preventDefault();
+        register();
+    }
+
     const [userRegister, setUserRegister] = useState({
         lastName: "",
         firstName: "",
@@ -61,15 +63,18 @@ function Auth() {
 
     const register = async () => {
         try {
-            await axios.post(`http://localhost:3000/api/auth/register`,
+            await axios.post(`http://192.168.1.64:3000/api/auth/register`,
                 { userRegister })
-                .then(() => {
-                    isHidden(true)
+                .then((res) => {
+                    if(res.ok){
+                        setIsHidden(true)
+                    }
                 })
-                .catch(err => console.log(err))
+                .catch(err => setError(err.response.data.message))
 
         } catch (error) {
-            console.log(error)
+            
+            
         }
     }
 
@@ -82,9 +87,9 @@ function Auth() {
                     <img className='img' src={logoWithText} alt="Le logo Groupomania" />
                 </div>
                 <h4>Inscription</h4>
-
+                <p>{error}</p>
                 <div className='auth-form'>
-                    <form action="">
+                    <form onSubmit={handleRegister}>
                         <label htmlFor="nom"></label>
                         <input type="text" id="nom" placeholder="Nom" required onChange={(e) => setUserRegister({ ...userRegister, lastName: e.target.value })} />
 
@@ -97,7 +102,7 @@ function Auth() {
                         <label htmlFor="password"></label>
                         <input type="password" id="password" placeholder="Mot de passe" required onChange={(e) => setUserRegister({ ...userRegister, password: e.target.value })} />
 
-                        <input type="submit" className='auth-btn-submit' value='Envoyer' onClick={register} />
+                        <input type="submit" className='auth-btn-submit' value='Envoyer' />
                     </form>
                 </div>
                 <button className='auth-link' onClick={() => setIsHidden(false)}>S'inscrire</button>
@@ -111,7 +116,7 @@ function Auth() {
                     <img className='img' src={logoWithText} alt="Le logo Groupomania" />
                 </div>
                 <h2>Connexion</h2>
-
+                <p>{error}</p>
                 <div className='auth-form'>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="identifiant"></label>

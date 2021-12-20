@@ -1,0 +1,26 @@
+.layout-profil {
+    height: 88vh;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.layout-profil form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.layout-profil img{
+    width: 10%;
+    height: auto;
+    border-radius: 50%;
+
+}
+
+@media screen and (max-width:480px) {
+    .layout-profil {
+        height: 80vh;
+    }
+}
