@@ -1,4 +1,7 @@
 import './../../../styles/Post.css';
+import Comment from './../comment/Comment';
+import Like from './../comment/Like';
+
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 
@@ -52,6 +55,12 @@ function GetFeed({priv, post_id, avatar, firstName, lastName, cover, message, da
                 <div className="feed-layout-message">
                     <p className='post-message'>{message}</p>
                     {cover == null ? null : <img src={cover} alt={"image du post de " + firstName + " " + lastName} />}
+                </div>
+                <div className="feed-layout-like">
+                    <Like />
+                </div>
+                <div className="feed-layout-comment">
+                    <Comment />
                 </div>
             </div>
         </div>

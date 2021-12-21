@@ -89,23 +89,6 @@ function Profil() {
                             </div>
                         </div>
                 }
-
-
-                <div className="layout-profil">
-                    <img src={userInfo.user.avatar_path} />
-                    <form onSubmit={HandleModifyProfil}>
-
-                        <input type="file" id="avatar_img" />
-                        <input type="text" placeholder={userInfo.user.prenom} />
-                        <input type="text" placeholder={userInfo.user.nom} />
-                        <input type="email" placeholder={userInfo.user.email} />
-                        <button type="submit">Envoyer</button>
-                    </form>
-                    <div className="delete-profil">
-                        <button onClick={HandleDelete}>Supprimé le profil</button>
-                    </div>
-                </div>
-
             </div>
         )
     }

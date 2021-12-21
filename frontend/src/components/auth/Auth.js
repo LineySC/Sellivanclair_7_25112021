@@ -58,8 +58,27 @@ function Auth() {
         lastName: "",
         firstName: "",
         email: "",
-        password: ""
+        password: "",
+        checkPassord: "",
     })
+
+    
+
+    const checkLastName = () => {
+        
+    }
+
+    const checkFirstName = () =>{
+
+    }
+
+    const checkEmail = () => {
+
+    }
+
+    const checkPassword = () => {
+
+    }
 
     const register = async () => {
         try {
@@ -101,6 +120,9 @@ function Auth() {
 
                         <label htmlFor="password"></label>
                         <input type="password" id="password" placeholder="Mot de passe" required onChange={(e) => setUserRegister({ ...userRegister, password: e.target.value })} />
+
+                        <label htmlFor="checkPassword"></label>
+                        <input type="password" id="checkPassword" placeholder="Confirmation du mot de passe" required onChange={(e) => setUserRegister({ ...userRegister, checkPassword: e.target.value })} />
 
                         <input type="submit" className='auth-btn-submit' value='Envoyer' />
                     </form>

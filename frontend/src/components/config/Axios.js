@@ -1,16 +1,25 @@
-import axios from "axios"
+import axios from 'axios';
 
-const token = localStorage.getItem('token')
+function AxiosToken(){
 
-function Axios() {
-    const instance = axios.create({
-        baseURL: 'http://127.0.0.1:3000/api/',
-        headers: {
-            'access-control-allow-origin': '*',
-            'Authorization': `Bearer ${token}`,
+    if (localStorage.getItem('user') == null) {
+        return false
+    }
+    else {
+        const local = JSON.parse(localStorage.getItem('user'))
+        const userToken = local.token
+        return userToken
+    }
 
-        }
-    })
+    
 }
+/*
+export default {
 
-export default Axios;
+    const token = AxiosToken(),
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token.token}`,
+    axios.defaults.timeout = 6000
+}
+*/
+
+
