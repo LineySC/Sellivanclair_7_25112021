@@ -4,39 +4,14 @@
 ** FFD7D7 => Light orange
 **/
 
-
-
-#loader {
-    border: solid 5px #ffffff00;
-    border-radius: 100%;
-    border-top: solid 5px #2d3142;
-    border-bottom: solid 5px #2d3142;
-    ;
-    width: 50px;
-    height: 50px;
-    animation: infinite 1s Loader;
+.erreur{
+    border: 2px solid red !important;
 }
-
-@keyframes Loader {
-    0% {
-        transform: rotateZ(0deg);
-    }
-
-    50% {
-        transform: rotate(360deg);
-    }
-
-    100% {
-        transform: rotateZ(720deg);
-    }
-
-}
-
 
 /*     Formulaire      */
+
 .auth {
     height: 100vh;
-    /* Magic here */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,6 +34,11 @@ h2 {
     color: #FFFFFF;
     font-size: 24px;
     margin: 0 0 2.5em 0;
+}
+
+.auth-img{
+    display: flex;
+    justify-content: center;
 }
 
 .auth-img .img {
@@ -99,6 +79,21 @@ input:focus {
     color: #FFFFFF;
 }
 
+.auth-link{
+    margin-top: 10px;
+    padding: 16px;
+    background-color: #2d3142;
+    transition: linear 0.15s;
+    border-radius: 5px;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-link:hover {
+    color: #2d3142;
+}
+
 .auth-btn-submit[type="submit"] {
 
     background-color: #2d3142;
@@ -115,15 +110,7 @@ input:focus {
     border: none !important;
 }
 
-.auth-link {
-    text-decoration: none;
-    font-size: 1.25em;
-    color: #FFFFFF;
-}
 
-.auth-link:hover {
-    color: #2d3142;
-}
 
 /*********** MEDIA QUERIES ************/
 
@@ -147,9 +134,12 @@ input:focus {
     }
 
     .auth-img .img {
-        margin-top: -2em;
         width: 250px;
-        height: 150px;
+        height: auto;
+    }
+
+    .auth-layout h4{
+        margin: 0;
     }
 
     .auth-form input {
@@ -157,4 +147,18 @@ input:focus {
         font-size: 20px;
     }
 
+    .auth-form input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0);
+        margin-bottom: 25px;
+        padding: 10px 0 10px 0;
+        border: none;
+        border-bottom: solid 3px #2d314250;
+        font-size: 16px;
+        text-align: center;
+        color: #FFFFFF
+   }
 }

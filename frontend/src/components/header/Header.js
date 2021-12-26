@@ -47,14 +47,13 @@ function Header() {
                     <div className="container-toggle">
                         {
                             togClass === "light" ?
-
-                                <button id="toggle" className='toggle-button' onClick={handleOnClick}><i className="icon-theme bx bxs-moon"></i></button>
+                                
+                                <button aria-label="Theme sombre" type="button" id="toggle" value="Theme sombre" className='toggle-button' onClick={handleOnClick}><i className="icon-theme bx bxs-moon"></i></button>
                                 :
-                                <button id="toggle" className='toggle-button' onClick={handleOnClick}><i className="icon-theme bx bxs-sun"></i></button>
+                                
+                                <button aria-label="Theme clair" id="toggle" value="Theme clair" className='toggle-button' onClick={handleOnClick}><i className="icon-theme bx bxs-sun"></i></button>
                         }
-                        <label htmlFor="toggle" className="toggle--label">
-                            <span className="toggle--label-background"></span>
-                        </label>
+                        
                     </div>
                 </div>
 

@@ -1,26 +1,33 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('./../config/db');
-const { fs } = require('fs');
+const fs = require('fs');
 
 
 exports.register = (req, res, next) => {
 
     req.body.userRegister.email = req.body.userRegister.email.toLowerCase();
 
+    const firstName = req.body.userRegister.firstName
+    const firstNameUpper = req.body.userRegister.firstName.charAt(0).toUpperCase() + firstName.slice(1);
+
+    const lastName = req.body.userRegister.lastName
+    const lastNameUpper = req.body.userRegister.lastName.charAt(0).toUpperCase() + lastName.slice(1);
+
     bcrypt.hash(req.body.userRegister.password, 15)
         .then(hash => {
-
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
             db.query(
-                `INSERT INTO user (nom, prenom, email, password, date_create, privilege) 
-                VALUES 
-                (?, ?, ?, ?, ?)`,
-                [req.body.userRegister.lastName, req.body.userRegister.firstName, req.body.userRegister.email, hash, date, 0],
+                `INSERT INTO user (nom, prenom, email, password, last_update, created, privilege) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                [lastNameUpper, firstNameUpper, req.body.userRegister.email, hash, date, date, 0],
                 function (err, result) {
                     if (err) { throw err }
+                    else {
+                        res.status(200)
+                    }
                 })
+
 
         })
         .catch((err) => res.status(400).json(err))
@@ -30,19 +37,20 @@ exports.register = (req, res, next) => {
 exports.login = (req, res, next) => {
     req.body.user.email = req.body.user.email.toLowerCase();
 
-    db.query(`SELECT * FROM user WHERE email = ?`,
-        [req.body.user.email],
+    db.query("SELECT * FROM user WHERE email = '" + req.body.user.email + "'",
+
         function (err, result) {
             if (err) {
-                return res.status(400).json({ message: "Aucun e-mail n'a été trouvé" })
+                return res.status(400).json({ message: "Aucun email n'a été trouvé" })
             }
-            else if (req.body.user.email == undefined) {
-                return res.status(400).json({ message: "Aucun e-mail n'a été trouvé" })
-            }
+
             else {
                 console.log(req.body.user.email)
                 const user = result[0];
-                if (req.body.user.email == user.email) {
+                if (user == null) {
+                    return res.status(400).json({ message: "Aucun email n'a été trouvé" })
+                }
+                else if (req.body.user.email == user.email) {
                     bcrypt.compare(req.body.user.password, user.password)
                         .then(valid => {
                             if (!valid) {
@@ -54,7 +62,7 @@ exports.login = (req, res, next) => {
                                     {
                                         userId: user.id,
                                         privilege: user.privilege
-                                    }, 
+                                    },
                                     process.env.SECRET_TOKEN,
                                     { expiresIn: '24h' }
                                 )
@@ -67,12 +75,12 @@ exports.login = (req, res, next) => {
                             }
                         })
                         .catch(err => {
-                            return res.status(400).json({ message: "Aucun e-mail n'a été trouvé" })
+                            console.log(err)
                         })
                 }
 
                 else {
-                    return res.status(400).json({ message: "Aucun e-mail n'a été trouvé" })
+                    return res.status(400).json({ message: "un problème est survenu" })
                 }
 
             }
@@ -81,15 +89,13 @@ exports.login = (req, res, next) => {
 
 exports.getProfil = (req, res, next) => {
 
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN);
-    const userId = decodedToken.userId;
+    const userId = res.locals.decodedToken.userId;
+
     db.query(`SELECT * FROM user WHERE id = ?`,
         [userId],
         function (err, result) {
             if (err) { throw err }
             else {
-                console.log(result)
                 res.status(200).json(result)
             }
         })
@@ -98,28 +104,58 @@ exports.getProfil = (req, res, next) => {
 
 //MODIFICATION D'UN USER
 exports.modifyProfil = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN);
-    const userId = decodedToken.userId;
 
-    const { file } = req;
-    console.log(req.file.filename)
-    const imageDest = `${req.protocol}://${req.get('host')}/images/picture-profil/${req.file.filename}`;
-    db.query(`UPDATE user SET avatar_path = ? WHERE id = `, [imageDest, userId],
-        function (err, result) {
-            if (err) { throw err }
-            else {
-                res.status(200).json({ message: "Le profil à bien été modifier" })
-            }
-        })
+    const userId = res.locals.decodedToken.userId;
+
+    let { body, file } = req
+
+    if (file == undefined) {
+        db.query(`UPDATE user SET avatar_path = ? WHERE id = ?`, [imageDest, userId],
+            function (err, result) {
+                if (err) { }
+                else {
+                    res.status(200).json({ message: "Le profil à bien été modifier" })
+                }
+            })
+    }
+    else {
+
+        const imageDest = `${req.protocol}://${req.get('host')}/images/picture-profil/${req.file.filename}`;
+        db.query(`UPDATE user SET avatar_path = ? WHERE id = ?`, [imageDest, userId],
+            function (err, result) {
+                if (err) { throw err }
+                else {
+                    res.status(200).json({ message: "Le profil à bien été modifier" })
+                }
+            })
+    }
+
 }
 
 exports.deleteUser = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN);
-    const userId = decodedToken.userId;
-    console.log(userId)
-    db.query(`DELETE user FROM user LEFT JOIN post ON auteur = ? WHERE id= ?`,
+    const userId = res.locals.decodedToken.userId;
+    db.query('SELECT * FROM user WHERE id = ?', [userId],
+        function (err, result) {
+            const filename = result[0].avatar_path.split('/picture-profil/')[1];
+            fs.unlink(`images/picture-profil/${filename}`, (err) => {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    db.query(`DELETE user FROM user WHERE id= ?`,
+                        [userId, userId],
+                        function (err, result) {
+                            if (err) {
+                                throw err
+                            }
+                            else {
+                                res.status(200).json({ message: "Le profil à bien été supprimé" } + console.warn("Profil supprimé"))
+                            }
+                        })
+                }
+            })
+        })
+    /*db.query(`DELETE user FROM user WHERE id= ?`,
         [userId, userId],
         function (err, result) {
             if (err) {
@@ -128,5 +164,5 @@ exports.deleteUser = (req, res, next) => {
             else {
                 res.status(200).json({ message: "Le profil à bien été supprimé" })
             }
-        })
+        })*/
 }

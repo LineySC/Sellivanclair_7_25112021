@@ -35,15 +35,13 @@ main{
 }
 
 .post-form .btn-send-post{
-    font-size: 22px;
+    font-size: 16px;
     margin-bottom: 20px;
     border-radius: 5px;
-    background-color: #EF8354;
-    color: white;
     border: none;
     transition: linear 0.15s;
     border-radius: 5px;
-
+    padding: 10px
 }
 
 .post{
@@ -113,6 +111,20 @@ main{
 
 .post-content .btn-trash:hover{
     background: #fc042dad;
+}
+
+/* 
+********* MEDIA QUERIES
+*/
+
+@media screen and (min-width: 480px) and (max-width: 720px) {
+    .post-form textarea{
+        width: 400px;
+    }
+    
+    .post-content{
+        width: 400px;
+    }
 }
 
 @media screen and (max-width:480px) {

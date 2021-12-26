@@ -1,5 +1,6 @@
 import Header from "../Header"
 import './Profil.css';
+import DefaultAvatar from './../../../assets/avatar.png'
 
 import React, { useState, useEffect } from 'react'
 import axios from "axios"
@@ -16,7 +17,7 @@ function Profil() {
 
     const handleInfoProfil = async () => {
         axios
-            .get(`http://localhost:3000/api/auth/profil/${userAuth.id}`, { headers: { "Authorization": `Bearer ${userAuth.token}` } })
+            .get(process.env.REACT_APP_URL_API + `:3000/api/auth/profil/${userAuth.id}`, { headers: { "Authorization": `Bearer ${userAuth.token}` } })
             .then((res) => {
 
                 setUserInfo({ user: res.data[0] })
@@ -28,7 +29,7 @@ function Profil() {
 
     useEffect(() => {
         handleInfoProfil()
-    }, [])
+    }, []) // eslint-disable-line
 
 
     const HandleModifyProfil = async () => {
@@ -36,13 +37,13 @@ function Profil() {
         const formData = new FormData();
         formData.set("profil_image", document.getElementById('avatar_img').files[0])
 
-        axios.put(`http://localhost:3000/api/auth/profil/${userAuth.id}`, formData, { headers: { "Authorization": `Bearer ${userAuth.token}` } })
+        axios.put(process.env.REACT_APP_URL_API + `:3000/api/auth/profil/${userAuth.id}`, formData, { headers: { "Authorization": `Bearer ${userAuth.token}` } })
 
     }
 
     const HandleDelete = async () => {
 
-        axios.delete(`http://localhost:3000/api/auth/profil/${userAuth.id}`, { headers: { "Authorization": `Bearer ${userAuth.token}` } })
+        axios.delete(process.env.REACT_APP_URL_API + ':3000/api/auth/profil/' + userAuth.id, { headers: { "Authorization": `Bearer ${userAuth.token}` } })
             .then(() => {
                 localStorage.setItem('user', JSON.stringify("1"))
                 navigate("/auth")
@@ -63,7 +64,10 @@ function Profil() {
                 {
                     isModify ?
                         <div className="layout-profil">
-                            <img src={userInfo.user.avatar_path} />
+                            <img
+                                src={userInfo.user.avatar_path == null ? DefaultAvatar : userInfo.user.avatar_path}
+                                alt={userInfo.user.avatar_path == null ? "Photo de profil par default" : "Photo de profil de" + userInfo.user.prenom + userInfo.user.nom}
+                            />
                             <div className="infoProfil">
                                 <p>{userInfo.user.prenom}</p>
                                 <p>{userInfo.user.nom}</p>
@@ -75,7 +79,10 @@ function Profil() {
                         </div>
                         :
                         <div className="layout-profil">
-                            <img src={userInfo.user.avatar_path} />
+                            <img
+                                src={userInfo.user.avatar_path == null ? DefaultAvatar : userInfo.user.avatar_path}
+                                alt={userInfo.user.avatar_path == null ? "Photo de profil par default" : "Photo de profil de" + userInfo.user.prenom + userInfo.user.nom}
+                            />
                             <form onSubmit={HandleModifyProfil}>
 
                                 <input type="file" id="avatar_img" />
@@ -92,14 +99,8 @@ function Profil() {
             </div>
         )
     }
-    else {
-        return
-        (
-            <div>
-                <Header />
-                <h1>NO Data Available</h1>
-            </div>
-        )
+    else{
+        return (<h1>No Data</h1>)
     }
 }
 

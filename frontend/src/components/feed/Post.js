@@ -14,8 +14,9 @@ class Post extends React.Component {
     componentDidMount() {
         const user = JSON.parse(localStorage.getItem('user'));
 
-        axios.get('http://192.168.1.64:3000/api/post', { headers: { "Authorization": `Bearer ${user.token}` } })
+        axios.get(process.env.REACT_APP_URL_API +':3000/api/post', { headers: { "Authorization": `Bearer ${user.token}` } })
             .then((res) => {
+                console.log(res)
                 this.setState({ feed: res.data })
 
             })
@@ -29,9 +30,9 @@ class Post extends React.Component {
             <main>
                 <PostFeed />
                 <div className='layout-feed'>
-                    {this.state.feed.map(({ privilege, id, post_id, avatar_path, prenom, nom, image_path, message, date }) => (
+                    {this.state.feed.map(({ privilege, id, postId, post_id, avatar_path, prenom, nom, image_path, message, date, likes }) => (
                         <GetFeed
-                            key={post_id}
+                            key={postId}
                             priv={privilege}
                             userId={id}
                             post_id={post_id}
@@ -41,6 +42,7 @@ class Post extends React.Component {
                             lastName={nom}
                             message={message}
                             date={date}
+                            likes={likes}
                         />
                     ))}
                 </div>

@@ -22,7 +22,7 @@ function Nav() {
 
                         <li>
                             <Link to={`/profil/${user.id}`} state={{ from: "the-page-id" }}>Profil</Link>
-                        </li > { /*Mettre nom et photo de profile */}
+                        </li >
                     </ul>
                     <ul>
                         <li>

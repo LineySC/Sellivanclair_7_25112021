@@ -1,3 +1,14 @@
-.layout-like i{
+.layout-like button{
+    border: none;
+    background: none;
+}
+
+.layout-like .bxs-like{
     font-size: 25px;
+    color: green;
+}
+
+.layout-like .bx-like{
+    font-size: 25px;
+    color: black;
 }

@@ -12,7 +12,7 @@ function PostFeed() {
             console.log(formData)
 
             await axios
-                .post('http://192.168.1.64:3000/api/post',
+                .post(process.env.REACT_APP_URL_API + ':3000/api/post',
                     formData,
                     {
                         headers: {
@@ -22,7 +22,9 @@ function PostFeed() {
                 .then(res => {
                     console.log(res)
                 })
-                .catch(console.log("cassé"))
+                .catch(err => {
+                    console.log(err)
+                })
         }
         catch (e) {
             console.error(e)
@@ -39,9 +41,9 @@ function PostFeed() {
         <div>
             <div id="postSend" className='post-form'>
                 <form onSubmit={handleSubmit}>
-                    <textarea id="sendMessageForm" placeholder="Quoi de neuf aujourd'hui ?"/>
-                    <input type="file" id="img" />
-                    <input className="btn-send-post" type="submit" value="Envoyer" />
+                    <textarea id="sendMessageForm" placeholder="Quoi de neuf aujourd'hui ?" aria-label="Champ de texte pour posté un message "/>
+                    <input type="file" id="img" aria-label="Ajouté une image avotre post"/>
+                    <input className="btn-send-post" type={"submit"} value="Envoyer" aria-label="Envoyer"/>
                 </form>
             </div>
             <div id="post" className='post'>

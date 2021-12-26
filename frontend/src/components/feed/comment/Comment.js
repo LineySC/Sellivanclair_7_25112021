@@ -8,8 +8,8 @@ function Comment(){
                     
                 </div>
                 <form>
-                    <input type="text" placeholder="Ecrivez un commentaire.."/>
-                    <button type="submit"><i class='bx bxs-edit'></i></button>
+                    <input type="text" placeholder="Ecrivez un commentaire.." aria-label="Ecrivez un commentaire" />
+                    <button type="submit" aria-label="Envoyer"><i className='bx bxs-edit'></i></button>
                 </form>
             </div>
         </div>

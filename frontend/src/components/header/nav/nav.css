@@ -10,7 +10,7 @@ a {
     display: none;
 }
 
-@media screen and (max-width:480px){
+@media screen and (max-width:770px){
 
     .isResponsive {
         display: none;
