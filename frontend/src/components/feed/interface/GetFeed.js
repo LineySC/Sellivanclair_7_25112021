@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 
 
 
-function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, userId, likes, privilege }) {
+function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, userId, likes }) {
     const [auth, setAuth] = useState(false)
     //Supression de Post
     function HandleClick(post_id) {

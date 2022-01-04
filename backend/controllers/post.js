@@ -11,10 +11,9 @@ const fs = require('fs')
 //Tous les posts
 exports.getAllPosts = (req, res, next) => {
     db.query(/*`SELECT * FROM user INNER JOIN post ON user.id = post.userId LEFT JOIN likes ON post.post_id = likes.postId `*/
-        'SELECT * FROM user JOIN feed ON user.id = feed.user_id JOIN post ON post.id = feed.post_id', function (err, result) {
-            if (err)
-            {
-                return res.status(400).json({message: 'Impossible de récupéré les données'})
+        'SELECT * FROM user INNER JOIN post ON user.id = post.user_id', function (err, result) {
+            if (err) {
+                return res.status(400).json({ message: 'Impossible de récupéré les données' })
             }
             else {
                 res.status(200).json(result)
@@ -39,13 +38,6 @@ exports.createPost = (req, res, next) => {
                 }
                 else {
                     res.status(200)
-                    db.query('INSERT INTO feed (user_id, post_id) VALUES (?, ?)',
-                        [userId, result.insertId],
-                        function (err, result) {
-                            if (err) throw err
-                            else (console.log("Ajouté dans feed aussi"))
-                        }
-                    )
                 }
             }
         )
@@ -58,13 +50,6 @@ exports.createPost = (req, res, next) => {
                 if (err) throw err;
                 else {
                     res.status(200)
-                    db.query('INSERT INTO feed (user_id, post_id) VALUES (?, ?)',
-                        [userId, result.insertId],
-                        function (err, result) {
-                            if (err) throw err
-                            else (console.log("Ajouté dans feed aussi"))
-                        }
-                    )
                 }
             })
     }
@@ -79,29 +64,24 @@ exports.deletePost = (req, res, next) => {
     db.query('SELECT * FROM post WHERE id = ?', [req.body.params.postId],
         function (err, result) {
             if (err) {
-                res.status(500).json({ message: "Un probleme est survenue" })
-                throw err
+                res.status(500).json({ message: "Un probleme est survenue" }) // PROBLEME SUPPRESSION 
+                console.log(result)
             }
+
             else if (result[0].image_path == null) { // Pas d'image
                 if (err) {
                     res.status(500).json({ message: "Un probleme est survenue" } + console.log("erreur"))
                 }
                 else if (userPriv === 1) {
                     const postId = req.body.params.postId
-                    db.query(`DELETE FROM feed WHERE post_id = ?`,
+                    db.query(`DELETE FROM post where id = ?`,
                         [postId],
                         function (err, result) {
-                            if (err) {  
+                            if (err) {
                                 return res.status(500).json({ message: "Une erreur est survenu" })
 
                             }
                             else {
-                                db.query('DELETE FROM post where id = ?',
-                                    [postId],
-                                    function (err, result) {
-                                        if (err) throw err
-
-                                    })
                                 return res.status(200)
                             }
                         })
@@ -109,19 +89,13 @@ exports.deletePost = (req, res, next) => {
                 }
                 else if (req.body.params.user == userId) {
                     const postId = req.body.params.postId
-                    db.query(`DELETE FROM feed WHERE post_id = ?`,
+                    db.query(`DELETE FROM post where id = ?`,
                         [postId],
                         function (err, result, fields) {
                             if (err) {
                                 return res.status(500).json({ message: "Une erreur est survenu" })
                             }
                             else {
-                                db.query('DELETE FROM post where id = ?',
-                                    [postId],
-                                    function (err, result) {
-                                        if (err) throw err
-                                        
-                                    })
                                 return res.status(200)
                             }
                         })
@@ -140,19 +114,13 @@ exports.deletePost = (req, res, next) => {
                     else {
                         if (userPriv === 1) {
                             const postId = req.body.params.postId
-                            db.query(`DELETE FROM feed WHERE post_id = ?`,
+                            db.query(`DELETE FROM post where id = ?`,
                                 [postId],
                                 function (err, result) {
                                     if (err) {
                                         return res.status(500).json({ message: "Une erreur est survenu" })
                                     }
                                     else {
-                                        db.query('DELETE FROM post where id = ?',
-                                            [postId],
-                                            function (err, result) {
-                                                if (err) throw err
-
-                                            })
                                         return res.status(200)
                                     }
                                 })
@@ -160,19 +128,13 @@ exports.deletePost = (req, res, next) => {
                         }
                         else if (req.body.params.user == userId) {
                             const postId = req.body.params.postId
-                            db.query(`DELETE FROM feed WHERE post_id = ?`,
+                            db.query(`DELETE FROM post where id = ?`,
                                 [postId],
                                 function (err, result) {
                                     if (err) {
                                         return res.status(500).json({ message: "Une erreur est survenu" })
                                     }
                                     else {
-                                        db.query('DELETE FROM post where id = ?',
-                                            [postId],
-                                            function (err, result) {
-                                                if (err) throw err
-
-                                            })
                                         return res.status(200)
                                     }
                                 })

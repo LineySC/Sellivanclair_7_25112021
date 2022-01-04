@@ -16,7 +16,7 @@ exports.postCommment = (req, res, next) => {
 }
 
 exports.getComment = (req, res, next) => {
-
+    
 }
 
 exports.deleteComment = (req, res, next) => {

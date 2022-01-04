@@ -26,6 +26,7 @@ class Post extends React.Component {
 
         axios.get(process.env.REACT_APP_URL_API + ':3000/api/post', { headers: { "Authorization": `Bearer ${user.token}` } })
             .then((res) => {
+                console.log(res)
                 this.setState({
                     feed: res.data.reverse(),
                     isLoading: false,
@@ -97,7 +98,7 @@ class Post extends React.Component {
                                 key={index}
                                 priv={privilege}
                                 userId={user_id}
-                                post_id={post_id}
+                                post_id={id}
                                 cover={image_path}
                                 avatar={avatar_path}
                                 firstName={prenom}
