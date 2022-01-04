@@ -8,8 +8,7 @@ import { useState, useEffect } from 'react'
 
 
 
-function GetFeed({ post_id, postId, avatar, firstName, lastName, cover, message, date, userId, likes }) {
-
+function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, userId, likes, privilege }) {
     const [auth, setAuth] = useState(false)
     //Supression de Post
     function HandleClick(post_id) {
@@ -25,10 +24,11 @@ function GetFeed({ post_id, postId, avatar, firstName, lastName, cover, message,
                 console.log(err)
             })
 
-        document.location.reload()
+        document.location.reload(true)
     }
 
-    const convertDate = date.slice(0, 19).replace('T', ' ')
+    
+
     const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
@@ -36,6 +36,8 @@ function GetFeed({ post_id, postId, avatar, firstName, lastName, cover, message,
             setAuth(true)
         }
         else if (user.id !== userId) {
+            console.log(userId)
+            console.log("pas le nmeme post_ID")
             setAuth(false)
         }
         else {
@@ -59,7 +61,7 @@ function GetFeed({ post_id, postId, avatar, firstName, lastName, cover, message,
                         <p className="post-auteur">{firstName} {lastName}</p>
                     </div>
 
-                    <p className="post-date">{convertDate}</p>
+                    <p className="post-date">{date}</p>
 
                 </div>
                 <div className="feed-layout-message">
@@ -74,7 +76,9 @@ function GetFeed({ post_id, postId, avatar, firstName, lastName, cover, message,
                     />
                 </div>
                 <div className="feed-layout-comment">
-                    <Comment />
+                    <Comment 
+                        postId={post_id}
+                    />
                 </div>
             </div>
         </div>

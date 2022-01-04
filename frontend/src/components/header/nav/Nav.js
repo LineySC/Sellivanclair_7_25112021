@@ -7,7 +7,7 @@ function Nav() {
     const user = JSON.parse(localStorage.getItem('user'))
 
     const disconnect = (e) => {
-        localStorage.setItem('user', 1);
+        localStorage.removeItem('user')
     }
 
     const [nav, setNav] = useState(false)

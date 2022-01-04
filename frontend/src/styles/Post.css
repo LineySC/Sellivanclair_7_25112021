@@ -8,7 +8,7 @@ main{
 
 .layout-feed{
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -32,6 +32,7 @@ main{
 
 .post-form form input{
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .post-form .btn-send-post{

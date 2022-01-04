@@ -3,8 +3,21 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
     
     const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN);
-    const userId = decodedToken.userId;
+    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN, function(err, decoded){
+        if(err){
+
+            err = {
+                name: 'jwt expired',
+                message: 'La connexion est expriré, merci de vous reconnecter'
+            }
+            res.status(401).json({message: err})
+        }
+        else{
+            return decoded
+        }
+    });
+    
+    const userId = decodedToken.userId
     if (!token) {
         return res.status(403).send("Un token est requis pour l'authentification")
     }

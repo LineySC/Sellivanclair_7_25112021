@@ -45,7 +45,6 @@ function Profil() {
 
         axios.delete(process.env.REACT_APP_URL_API + ':3000/api/auth/profil/' + userAuth.id, { headers: { "Authorization": `Bearer ${userAuth.token}` } })
             .then(() => {
-                localStorage.setItem('user', JSON.stringify("1"))
                 navigate("/auth")
             })
             .catch(e => {
@@ -60,46 +59,50 @@ function Profil() {
             <div>
                 <Header />
 
-
                 {
                     isModify ?
-                        <div className="layout-profil">
+                        <main className="layout-profil">
                             <img
                                 src={userInfo.user.avatar_path == null ? DefaultAvatar : userInfo.user.avatar_path}
                                 alt={userInfo.user.avatar_path == null ? "Photo de profil par default" : "Photo de profil de" + userInfo.user.prenom + userInfo.user.nom}
                             />
-                            <div className="infoProfil">
-                                <p>{userInfo.user.prenom}</p>
-                                <p>{userInfo.user.nom}</p>
-                                <p>{userInfo.user.email}</p>
+                            <div>
+                                <div className="info-profil">
+                                    <p>{userInfo.user.prenom}</p>
+                                    <p>{userInfo.user.nom}</p>
+                                    <p>{userInfo.user.email}</p>
+                                </div>
+                                <div className="delete-profil">
+                                    <button onClick={() => setIsModify(false)}>Modifier le profil</button>
+                                </div>
                             </div>
-                            <div className="delete-profil">
-                                <button onClick={() => setIsModify(false)}>Modifier le profil</button>
-                            </div>
-                        </div>
+                        </main>
                         :
-                        <div className="layout-profil">
-                            <img
-                                src={userInfo.user.avatar_path == null ? DefaultAvatar : userInfo.user.avatar_path}
-                                alt={userInfo.user.avatar_path == null ? "Photo de profil par default" : "Photo de profil de" + userInfo.user.prenom + userInfo.user.nom}
-                            />
-                            <form onSubmit={HandleModifyProfil}>
+                        <main className="layout-profil">
 
-                                <input type="file" id="avatar_img" />
-                                <input type="text" placeholder={userInfo.user.prenom} />
-                                <input type="text" placeholder={userInfo.user.nom} />
-                                <input type="email" placeholder={userInfo.user.email} />
-                                <button type="submit">Envoyer</button>
-                            </form>
-                            <div className="delete-profil">
-                                <button onClick={HandleDelete}>Supprimé le profil</button>
-                            </div>
-                        </div>
+                                <form onSubmit={HandleModifyProfil}>
+                                    <img
+                                        src={userInfo.user.avatar_path == null ? DefaultAvatar : userInfo.user.avatar_path}
+                                        alt={userInfo.user.avatar_path == null ? "Photo de profil par default" : "Photo de profil de" + userInfo.user.prenom + userInfo.user.nom}
+                                    />
+                                    <div className="form-input">
+                                        <input aria-label="Téléchargé une image" type="file" id="avatar_img" />
+                                        <input aria-label="Prenom" type="text" placeholder={userInfo.user.prenom} disabled/>
+                                        <input aria-label="Nom" type="text" placeholder={userInfo.user.nom} disabled/>
+                                        <input aria-label="Email" type="email" placeholder={userInfo.user.email} />
+                                        <button aria-label="Sauvegarder les modifications" className="modify-profil" type="submit">Envoyer</button>
+                                    </div>
+                                </form>
+                                <div className="delete-profil">
+                                    <button aria-label="Supprimé le profil" className="btn-delete" onClick={HandleDelete}>Supprimé le profil</button>
+                                </div>
+
+                        </main>
                 }
             </div>
         )
     }
-    else{
+    else {
         return (<h1>No Data</h1>)
     }
 }

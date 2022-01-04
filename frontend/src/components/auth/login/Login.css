@@ -1,0 +1,166 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-layout {
+    background-size: 200%;
+    background-image: linear-gradient(to right bottom, #ef8354, #cc616c, #955074, #594364, #2d3142);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.login-layout h1 {
+    color: #FFFFFF;
+}
+
+.login-layout p{
+    color: #FFFFFF;
+    
+}
+
+
+/* 
+***** FORM *****
+*/
+
+
+.login form {
+    border: solid 2px #2d314250;
+    border-radius: 10px;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 10px;
+}
+
+/* Input */
+.login-form input::placeholder {
+    color: #ffffff50;
+}
+
+.login-form input {
+    background-color: rgba(255, 255, 255, 0);
+    width: 250px;
+    margin-bottom: 20px;
+    padding: 10px 0 10px 0;
+    border: none;
+    border-bottom: solid 3px #2d314250;
+    font-size: 16px;
+    text-align: center;
+    color: #FFFFFF
+}
+
+input:focus {
+    outline: none !important;
+    border: none;
+    border-bottom: solid 3px #2d3142 !important;
+    color: #FFFFFF;
+}
+
+.login-link {
+    margin-top: 10px;
+    padding: 16px;
+    background-color: #2d3142;
+    transition: linear 0.15s;
+    border-radius: 5px;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    border: solid 2px #2d3142;
+}
+
+.login-link:hover {
+    background-color: #FFFFFF;
+    color: #2d3142;
+    border: solid 2px #2d3142;
+}
+
+.login-btn-submit[type="submit"] {
+
+    background-color: #2d3142;
+    transition: linear 0.15s;
+    border-radius: 5px;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+}
+
+.login-btn-submit:hover {
+    background-color: #FFFFFF;
+    color: #2d3142;
+    border: none !important;
+}
+
+
+/*
+***** INPUT ERROR *****
+*/
+
+.login-error {
+    border-bottom: solid 3px rgb(197, 35, 35) !important;
+    width: 50%;
+    animation: borderError cubic-bezier(.97, .25, .12, .76) 0.25s;
+}
+
+@keyframes borderError {
+    0% {
+        width: 100%;
+    }
+
+    50% {
+        width: 25%;
+    }
+
+    99% {
+        width: 100%;
+    }
+
+    100% {
+        width: 100%;
+    }
+
+}
+
+/*
+***** MEDIA QUERIES *****
+*/
+
+@media screen and (max-width: 480px) {
+    .login-layout p {
+        font-size: 1.5em;
+    }
+
+    .login-img .img {
+        width: 200px;
+        height: auto;
+    }
+
+    .login-layout h4 {
+        margin: 0;
+    }
+
+    .login-form input {
+        width: 250px;
+        font-size: 20px;
+    }
+
+    .login-form input {
+
+        margin-bottom: 15px;
+        padding: 5px 0 5px 0;
+        font-size: 16px;
+
+    }
+
+}

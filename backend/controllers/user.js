@@ -5,9 +5,9 @@ const fs = require('fs');
 
 
 exports.register = (req, res, next) => {
-
+    console.log(req.body.userRegister)
     req.body.userRegister.email = req.body.userRegister.email.toLowerCase();
-
+    
     const firstName = req.body.userRegister.firstName
     const firstNameUpper = req.body.userRegister.firstName.charAt(0).toUpperCase() + firstName.slice(1);
 
@@ -19,12 +19,14 @@ exports.register = (req, res, next) => {
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
             db.query(
-                `INSERT INTO user (nom, prenom, email, password, last_update, created, privilege) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                `INSERT INTO user (nom, prenom, email, password, updateAt, createdAt, privilege) VALUES (?, ?, ?, ?, ?, ?, ?)`,
                 [lastNameUpper, firstNameUpper, req.body.userRegister.email, hash, date, date, 0],
                 function (err, result) {
-                    if (err) { throw err }
+                    if (err) {
+                        return res.status(400).json({ message: "L'email est déjà enregistré" })
+                    }
                     else {
-                        res.status(200)
+                        return res.status(200).json({message: "Compte crée"})
                     }
                 })
 
@@ -45,7 +47,6 @@ exports.login = (req, res, next) => {
             }
 
             else {
-                console.log(req.body.user.email)
                 const user = result[0];
                 if (user == null) {
                     return res.status(400).json({ message: "Aucun email n'a été trouvé" })
@@ -54,10 +55,9 @@ exports.login = (req, res, next) => {
                     bcrypt.compare(req.body.user.password, user.password)
                         .then(valid => {
                             if (!valid) {
-                                return res.status(400).json({ message: "Le mots de passe ne correspond pas" })
+                                return res.status(400).json({ message: "Le mot de passe ne correspond pas." })
                             }
                             else {
-                                const maxAge = 60 * 60 * 24;
                                 const token = jwt.sign(
                                     {
                                         userId: user.id,
@@ -80,7 +80,7 @@ exports.login = (req, res, next) => {
                 }
 
                 else {
-                    return res.status(400).json({ message: "un problème est survenu" })
+                    return res.status(500).json({ message: "un problème est survenu" })
                 }
 
             }
@@ -112,7 +112,9 @@ exports.modifyProfil = (req, res, next) => {
     if (file == undefined) {
         db.query(`UPDATE user SET avatar_path = ? WHERE id = ?`, [imageDest, userId],
             function (err, result) {
-                if (err) { }
+                if (err) {
+
+                }
                 else {
                     res.status(200).json({ message: "Le profil à bien été modifier" })
                 }
@@ -123,7 +125,9 @@ exports.modifyProfil = (req, res, next) => {
         const imageDest = `${req.protocol}://${req.get('host')}/images/picture-profil/${req.file.filename}`;
         db.query(`UPDATE user SET avatar_path = ? WHERE id = ?`, [imageDest, userId],
             function (err, result) {
-                if (err) { throw err }
+                if (err) {
+                    throw err
+                }
                 else {
                     res.status(200).json({ message: "Le profil à bien été modifier" })
                 }
@@ -134,35 +138,42 @@ exports.modifyProfil = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
     const userId = res.locals.decodedToken.userId;
+    console.log(userId)
     db.query('SELECT * FROM user WHERE id = ?', [userId],
         function (err, result) {
-            const filename = result[0].avatar_path.split('/picture-profil/')[1];
-            fs.unlink(`images/picture-profil/${filename}`, (err) => {
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    db.query(`DELETE user FROM user WHERE id= ?`,
-                        [userId, userId],
-                        function (err, result) {
-                            if (err) {
-                                throw err
-                            }
-                            else {
-                                res.status(200).json({ message: "Le profil à bien été supprimé" } + console.warn("Profil supprimé"))
-                            }
-                        })
-                }
-            })
-        })
-    /*db.query(`DELETE user FROM user WHERE id= ?`,
-        [userId, userId],
-        function (err, result) {
-            if (err) {
-                throw err
+            if (result[0].avatar_path == null) {
+                db.query(`DELETE FROM user WHERE id= ?`,
+                    [userId],
+                    function (err, result) {
+                        if (err) {
+                            throw err
+                        }
+                        else {
+                            res.status(200).json({ message: "Le profil à bien été supprimé" })
+                        }
+                    }
+                )
             }
             else {
-                res.status(200).json({ message: "Le profil à bien été supprimé" })
+                const filename = result[0].avatar_path.split('/picture-profil/')[1];
+                fs.unlink(`images/picture-profil/${filename}`, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        db.query(`DELETE user FROM user WHERE id= ?`,
+                            [userId],
+                            function (err, result) {
+                                if (err) {
+                                    throw err
+                                }
+                                else {
+                                    res.status(200).json({ message: "Le profil à bien été supprimé" })
+                                }
+                            })
+                    }
+                })
             }
-        })*/
+        }
+    )
 }

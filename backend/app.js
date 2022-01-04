@@ -1,17 +1,19 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
-//ROUTE
+const helmet = require('helmet');
 
+//ROUTE
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const likeRoutes = require('./routes/like');
+const commentRoutes = require('./routes/comment');
 
 const path = require('path');
 const app = express();
 
-//TES
-
 app.use(express.json());
+
+app.use(helmet());
 
 //Set des reponse
 app.use((req, res, next) => {
@@ -28,5 +30,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/like', likeRoutes);
+app.use('/api/comment', commentRoutes);
 
 module.exports = app;

@@ -32,3 +32,11 @@
     background: var(--icon-color);
     color: var(--background-color);
 }
+
+/*
+********** PROFIL 
+*/
+
+.info-profil p{
+    color: var(--icon-color);
+}
