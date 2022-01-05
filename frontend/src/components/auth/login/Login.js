@@ -84,14 +84,8 @@ class Login extends React.Component {
                 :
                         <div className='login-form'>
                             <form onSubmit={this.handleSubmit}>
-                                <input
-                                    aria-label="email"
-                                    name="email"
-                                    type="email"
-                                    placeholder="E-mail"
-                                    value={this.state.email}
-                                    onChange={this.handleChange} />
-                                <input aria-label="mot de passe" name="password" type="password" placeholder='Mot de passe' value={this.state.password} onChange={this.handleChange} />
+                                <input autoComplete="email"  aria-label="email" name="email" type="email" placeholder="E-mail" value={this.state.email} onChange={this.handleChange} />
+                                <input autoComplete="current-password" aria-label="mot de passe" name="password" type="password" placeholder='Mot de passe' value={this.state.password} onChange={this.handleChange} />
                                 <input aria-label="Se connecter" className='register-btn-submit' type="submit" value="Envoyer" />
                             </form>
                         </div> }

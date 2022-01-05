@@ -17,9 +17,14 @@ header{
     box-shadow: 0 1px 4px #2d3142;
 }
 
-header img{
+header .logo{
     width: 250px;
     height: 100%;
+    cursor: pointer;
+}
+
+.logo:hover{
+    border: none !important;
 }
 
 .layout-nav{
@@ -31,11 +36,13 @@ ul li{
     list-style: none;
 }
 
-a{
+.nav-menu a, .wrap-nav-hidden a{
     font-size: 24px;
     color: #FFFFFF;
     text-decoration: none;
 }
+
+
 
 a:hover{
     color: #ffffff9f;
@@ -53,7 +60,7 @@ a:hover{
         font-size: 20px;
     }
 
-    header img{
+    header .logo{
         width: 150px;
         height: auto;
     }

@@ -5,14 +5,15 @@
     justify-content: center;
 }
 
-.layout-profil img{
-    width: 20%;
-    height: auto;
+.layout-profil img {
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     margin: 0 50px 0 0;
+    object-fit: cover;
 }
 
-.layout-profil form{
+.layout-profil form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,14 +23,16 @@
     border: none;
     cursor: pointer;
 }
-.form-input input:nth-child(2){
+
+.form-input input:nth-child(2) {
     cursor: not-allowed;
 }
+
 .form-input input:nth-child(3) {
     cursor: not-allowed;
 }
 
-.layout-profil form input{
+.layout-profil form input {
     margin-bottom: 5px;
     font-size: 24px;
     background-color: rgba(255, 255, 255, 0);
@@ -37,10 +40,11 @@
     border-bottom: solid 3px #2d314250;
     text-align: center;
     padding: 10px;
+    color: #FFFFFF;
 }
 
-.layout-profil input::placeholder{
-     color: #FFFFFF50;
+.layout-profil input::placeholder {
+    color: #FFFFFF50;
 }
 
 .modify-profil {
@@ -60,35 +64,31 @@
     font-size: 1.5em;
 }
 
-.form-input{
+.form-input {
     display: flex;
     flex-direction: column;
     border-radius: 15px;
-     background-size: 200%;
-     background-image: linear-gradient(to right bottom, #ef8354, #cc616c, #955074, #594364, #2d3142);
-     padding: 25px;
+    background-size: 200%;
+    background-image: linear-gradient(to right bottom, #ef8354, #cc616c, #955074, #594364, #2d3142);
+    padding: 25px;
 }
 
-.btn-delete{
-        background-color: rgb(202, 0, 0);
-        transition: linear 0.15s;
-        border-radius: 5px;
-        color: #FFFFFF;
-        border: none;
-        cursor: pointer;
-        padding: 10px;
-        font-size: 1em;
+.btn-delete {
+    background-color: rgb(202, 0, 0);
+    transition: linear 0.15s;
+    border-radius: 5px;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1em;
+    margin-top:20px;
 }
 
-@media screen and (max-width:480px) {
-    .layout-profil {
-        height: 80vh;
-    }
-
+@media screen and (max-width:768px) and (min-width:480px) {
     .layout-profil img {
-        width: 50%;
-        height: auto;
-        border-radius: 50%;
+        width: 150px;
+        height: 150px;
         margin: 0 0 50px 0;
     }
 
@@ -97,5 +97,28 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .layout-profil {
+        height: 80vh;
+    }
+
+    .layout-profil img {
+        width: 100px;
+        height: 100px;
+        margin: 0 0 50px 0;
+    }
+
+    .layout-profil form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .layout-profil form input{
+        font-size: 16px;
     }
 }

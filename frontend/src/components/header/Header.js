@@ -40,24 +40,19 @@ function Header() {
         <header>
 
             <div>
-                <Link to='/'><img src={logoHeader} alt="Logo de Groupomania" /></Link>
+                <Link to='/'><img src={logoHeader} alt="Logo de Groupomania" className="logo" /></Link>
             </div>
             <div className="layout-nav">
                 <div id="themeName">
                     <div className="container-toggle">
                         {
                             togClass === "light" ?
-                                
                                 <button aria-label="Theme sombre" type="button" id="toggle" value="Theme sombre" className='toggle-button' onClick={handleOnClick}><i className="icon-theme bx bxs-moon"></i></button>
                                 :
-                                
                                 <button aria-label="Theme clair" id="toggle" value="Theme clair" className='toggle-button' onClick={handleOnClick}><i className="icon-theme bx bxs-sun"></i></button>
                         }
-                        
                     </div>
                 </div>
-
-
                 <Nav />
             </div>
 

@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const likeController = require('../controllers/comment');
+const commentController = require('../controllers/comment');
 
 const auth = require('./../middleware/auth');
 
-router.post('/:id', auth, likeController.postCommment);
+router.post('/:id', auth, commentController.postCommment);
+router.get('/:id', commentController.getComment);
+router.delete('/', auth, commentController.deleteComment);
 
 module.exports = router;

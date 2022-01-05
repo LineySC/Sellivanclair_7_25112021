@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 
 
 
-function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, userId, likes }) {
+function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, userId, likes, commentMessage }) {
     const [auth, setAuth] = useState(false)
     //Supression de Post
     function HandleClick(post_id) {
@@ -36,8 +36,6 @@ function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, u
             setAuth(true)
         }
         else if (user.id !== userId) {
-            console.log(userId)
-            console.log("pas le nmeme post_ID")
             setAuth(false)
         }
         else {
@@ -50,7 +48,7 @@ function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, u
     return (
         <div className="post-content"  >
             {
-                auth ? <button className="btn-trash" onClick={() => HandleClick(post_id)} value={post_id} data-post={post_id}><i className='bx bx-trash-alt '></i></button>
+                auth ? <button aria-label="Supprimé le post" className="btn-trash" onClick={() => HandleClick(post_id)} value={post_id} data-post={post_id}><i className='bx bx-trash-alt '></i></button>
                     :
                     null
             }
@@ -78,6 +76,7 @@ function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, u
                 <div className="feed-layout-comment">
                     <Comment 
                         postId={post_id}
+                        commentMessage={commentMessage}
                     />
                 </div>
             </div>

@@ -10,8 +10,7 @@ const fs = require('fs')
 
 //Tous les posts
 exports.getAllPosts = (req, res, next) => {
-    db.query(/*`SELECT * FROM user INNER JOIN post ON user.id = post.userId LEFT JOIN likes ON post.post_id = likes.postId `*/
-        'SELECT * FROM user INNER JOIN post ON user.id = post.user_id', function (err, result) {
+    db.query('SELECT * FROM user JOIN post ON user.id = post.user_id ', function (err, result) { //LEFT JOIN comment ON post.id = comment.post_id
             if (err) {
                 return res.status(400).json({ message: 'Impossible de récupéré les données' })
             }
@@ -23,7 +22,6 @@ exports.getAllPosts = (req, res, next) => {
 
 //Creation de post
 exports.createPost = (req, res, next) => {
-    console.log(moment().locale('fr').format('D MMMM YYYY HH:mm:ss', "Europs/Paris"))
     const userId = res.locals.decodedToken.userId;
     let { body, file } = req;
     const date = moment().locale('fr').format('D MMMM YYYY HH:mm', "Europs/Paris");
@@ -32,13 +30,12 @@ exports.createPost = (req, res, next) => {
             [body.postMessage, userId, date],
             function (err, result, fields) {
                 if (err) {
-                    console.error("error")
                     res.status(500).json({ message: "Un problème est servenu" })
                     throw err
                 }
                 else {
                     res.status(200)
-                }
+                } const date = moment().locale('fr').format('D MMMM YYYY HH:mm', "Europs/Paris");
             }
         )
     }
@@ -65,12 +62,11 @@ exports.deletePost = (req, res, next) => {
         function (err, result) {
             if (err) {
                 res.status(500).json({ message: "Un probleme est survenue" }) // PROBLEME SUPPRESSION 
-                console.log(result)
             }
 
             else if (result[0].image_path == null) { // Pas d'image
                 if (err) {
-                    res.status(500).json({ message: "Un probleme est survenue" } + console.log("erreur"))
+                    res.status(500).json({ message: "Un probleme est survenue" })
                 }
                 else if (userPriv === 1) {
                     const postId = req.body.params.postId
@@ -108,7 +104,7 @@ exports.deletePost = (req, res, next) => {
                 const filename = result[0].image_path.split('/feed/')[1];
                 fs.unlink(`images/feed/${filename}`, (err) => {
                     if (err) {
-                        return res.status(500).json({ message: "Une erreur est survenu" } + console.log("pas de fichier"))
+                        return res.status(500).json({ message: "Une erreur est survenu" })
                     }
 
                     else {

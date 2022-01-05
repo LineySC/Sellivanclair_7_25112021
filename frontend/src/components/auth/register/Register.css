@@ -61,7 +61,7 @@
     color: #FFFFFF
 }
 
-input:focus {
+.register-form input:focus {
     outline: none !important;
     border: none;
     border-bottom: solid 3px #2d3142 !important;

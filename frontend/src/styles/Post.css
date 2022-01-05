@@ -112,6 +112,7 @@ main{
 
 .post-content .btn-trash:hover{
     background: #fc042dad;
+    animation: wiggleDelete infinite 1.5s ease
 }
 
 /* 
@@ -135,5 +136,30 @@ main{
 
     .post-content{
         width: 350px;
+    }
+}
+
+@keyframes wiggleDelete {
+
+    10%,
+    20% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg)
+    }
+
+    40%,
+    60%,
+    80% {
+        transform: rotate3d(0, 0, 1, -10deg);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
     }
 }

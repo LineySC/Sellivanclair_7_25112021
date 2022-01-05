@@ -5,7 +5,6 @@ const fs = require('fs');
 
 
 exports.register = (req, res, next) => {
-    console.log(req.body.userRegister)
     req.body.userRegister.email = req.body.userRegister.email.toLowerCase();
     
     const firstName = req.body.userRegister.firstName
@@ -75,7 +74,6 @@ exports.login = (req, res, next) => {
                             }
                         })
                         .catch(err => {
-                            console.log(err)
                         })
                 }
 
@@ -138,7 +136,6 @@ exports.modifyProfil = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
     const userId = res.locals.decodedToken.userId;
-    console.log(userId)
     db.query('SELECT * FROM user WHERE id = ?', [userId],
         function (err, result) {
             if (result[0].avatar_path == null) {
@@ -158,7 +155,6 @@ exports.deleteUser = (req, res, next) => {
                 const filename = result[0].avatar_path.split('/picture-profil/')[1];
                 fs.unlink(`images/picture-profil/${filename}`, (err) => {
                     if (err) {
-                        console.log(err)
                     }
                     else {
                         db.query(`DELETE user FROM user WHERE id= ?`,

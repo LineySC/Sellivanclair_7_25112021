@@ -42,7 +42,7 @@ class Like extends React.Component {
         
     }
     componentDidUpdate(){
-        if(this.res !== this.res){
+        if (this.res !== this.res) { // eslint-disable-line
             this.getLike();
         }
     }
@@ -65,13 +65,13 @@ class Like extends React.Component {
                     {
                         this.state.nbLikes === null ?
                             <div>
-                                <button onClick={() => { this.handleLike(this.props.post_id) }}>
+                                <button aria-label="Bouton pour liké un post" onClick={() => { this.handleLike(this.props.post_id) }}>
                                     <i className='bx bxs-like'></i>
                                 </button>
                             </div>
                             :
                             <div>
-                                <button onClick={() => { this.handleLike(this.props.post_id) }}>
+                                <button aria-label="Bouton pour liké un post" onClick={() => { this.handleLike(this.props.post_id) }}>
                                     <i className='bx bx-like'></i>
                                 </button>
                             </div>

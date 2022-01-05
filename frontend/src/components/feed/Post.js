@@ -26,7 +26,6 @@ class Post extends React.Component {
 
         axios.get(process.env.REACT_APP_URL_API + ':3000/api/post', { headers: { "Authorization": `Bearer ${user.token}` } })
             .then((res) => {
-                console.log(res)
                 this.setState({
                     feed: res.data.reverse(),
                     isLoading: false,
@@ -34,7 +33,6 @@ class Post extends React.Component {
                 })
             })
             .catch((err) => {
-                console.log(err)
                 if (err.response === undefined) {
 
                 }
@@ -51,10 +49,6 @@ class Post extends React.Component {
     componentDidMount() {
         this.getFeed();
     }
-
-    /*componentDidUpdate(prevProps, prevState) {
-        console.log(prevState.feed)
-    }*/
 
     render() {
         if (this.state.isLoading) {
@@ -92,7 +86,7 @@ class Post extends React.Component {
                 <main>
                     <PostFeed />
                     <div className='layout-feed'>
-                        {this.state.feed.map(({ id, privilege, user_id, userPostId, post_id, avatar_path, prenom, nom, image_path, message, postCreatedAt, likes }, index) => (
+                        {this.state.feed.map(({ id, privilege, user_id, userPostId, post_id, avatar_path, prenom, nom, image_path, message, postCreatedAt, likes, commentMessage }, index) => (
 
                             <GetFeed
                                 key={index}
@@ -105,6 +99,7 @@ class Post extends React.Component {
                                 lastName={nom}
                                 message={message}
                                 date={postCreatedAt}
+                                commentMessage={commentMessage}
                                 likes={likes}
                             />
                         ))}

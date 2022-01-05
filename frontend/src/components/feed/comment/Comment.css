@@ -1,0 +1,136 @@
+/*
+feed-layout-comment
+    Comment
+        Comment-layout
+            Comment-content
+                Comment-box
+                    img => comment-author-img
+                    comment-author-message
+        comment-form   
+*/
+
+.comment-box {
+    display: flex;
+    background: #d6d6d6;
+    border-radius: 15px;
+    margin: 15px;
+    position: relative;
+}
+
+.comment-box .btn-comment-trash {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    height: 25px;
+    width: 25px;
+    background-color: #FC042E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+}
+
+.btn-comment-trash i {
+    color: #FFFFFF;
+    font-weight: 100;
+
+}
+
+.btn-comment-trash:hover{
+    background: #fc042dad;
+    animation: wiggleDelete 1.5s ease infinite;
+}
+
+
+.comment-box p:nth-child(1) {
+    font-weight: 500;
+    margin: 5px 0 5px 0;
+}
+
+.comment-box p:nth-child(2) {
+    margin: 0 0 5px 0;
+}
+
+.comment-author-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px;
+}
+
+/*
+********** SEND COMMENT **********
+*/
+
+.comment-form{
+    position: relative;
+    display: flex;
+    margin-left: 15px;
+    align-items: center;
+}
+
+.comment-form input {
+    border: none;
+    border: solid 2px #2d314250;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.comment-form input:focus {
+    outline: none;
+    border: solid 2px #2d3142;
+    transition: 0.25s linear;
+}
+
+.comment-btn-send {
+    color: #2d3142;
+
+    top: -3px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    margin: 5px;
+    
+}
+
+.comment-btn-send:hover{
+    animation: btnSend 1.5s;
+}
+
+
+@keyframes wiggleDelete{
+    10%, 20%{
+        transform: scale3d(1, 1, 1);
+    }
+    30%, 50%, 70%, 90%{
+    transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg)
+    }
+    40%, 60%, 80%{
+        transform: rotate3d(0, 0, 1, -10deg);
+    }
+    100%{
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes btnSend{
+    0%{
+        transform: translateX(0);
+    }
+    10%{
+        transform: translateX(-10px);
+    }
+    50%{
+        transform: translateX(10px);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
+

@@ -50,9 +50,15 @@ a {
     .wrap-nav-hidden li a{
         color: White;
     }
+.wrap-nav,
+.wrap-nav-hidden{
+            transition:all 1s linear;
+}
 
 #icon-nav{
     font-size: 50px;
+    color:#2d3142;
+    transition: all 1s ease;
 }
 
     #icon-nav-hidden{
@@ -62,7 +68,10 @@ a {
         z-index: 100;
         right: 15px;
         top: 15px;
+    }
 
+    #icon-nav-hidden{
+                transition:all 1s linear;
     }
 
 }
