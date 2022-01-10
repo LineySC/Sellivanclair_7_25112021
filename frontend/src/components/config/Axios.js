@@ -4,7 +4,7 @@ const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
 
 const instance = axios.create({
-    baseURL: `${process.env.REACT_APP_URL_API}:3000`,
+    baseURL: 'http://localhost:3000',
     timeout: 10000
 })
 
