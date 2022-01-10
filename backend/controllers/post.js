@@ -28,14 +28,13 @@ exports.createPost = (req, res, next) => {
     if (file == undefined) {
         db.query(`INSERT INTO post (message, user_id, postCreatedAt) VALUES ( ?, ?, ? )`,
             [body.postMessage, userId, date],
-            function (err, result, fields) {
+            function (err) {
                 if (err) {
                     res.status(500).json({ message: "Un problème est servenu" })
-                    throw err
                 }
                 else {
                     res.status(200)
-                } const date = moment().locale('fr').format('D MMMM YYYY HH:mm', "Europs/Paris");
+                }
             }
         )
     }
@@ -43,8 +42,10 @@ exports.createPost = (req, res, next) => {
         const imageDest = `${req.protocol}://${req.get('host')}/images/feed/${req.file.filename}`;
         db.query(`INSERT INTO post (message, user_id, postCreatedAt, image_path) VALUES (?, ?, ?, ?)`,
             [body.postMessage, userId, date, imageDest],
-            function (err, result) {
-                if (err) throw err;
+            function (err) {
+                if (err){
+                    res.status(400).json({ error: "Impossible de crée le post " })
+                }
                 else {
                     res.status(200)
                 }
@@ -72,7 +73,7 @@ exports.deletePost = (req, res, next) => {
                     const postId = req.body.params.postId
                     db.query(`DELETE FROM post where id = ?`,
                         [postId],
-                        function (err, result) {
+                        function (err) {
                             if (err) {
                                 return res.status(500).json({ message: "Une erreur est survenu" })
 
@@ -87,7 +88,7 @@ exports.deletePost = (req, res, next) => {
                     const postId = req.body.params.postId
                     db.query(`DELETE FROM post where id = ?`,
                         [postId],
-                        function (err, result, fields) {
+                        function (err) {
                             if (err) {
                                 return res.status(500).json({ message: "Une erreur est survenu" })
                             }

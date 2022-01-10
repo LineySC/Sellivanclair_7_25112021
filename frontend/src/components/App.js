@@ -3,8 +3,6 @@ import './../styles/App.css';
 import Auth from './auth/Auth';
 import RoutesURL from './config/Routes';
 
-
-
 import React from 'react';
 
 import 'boxicons';

@@ -3,7 +3,7 @@ import Comment from './../comment/Comment';
 import Like from './../comment/Like';
 import AvatarImg from './../../../assets/avatar.png';
 
-import axios from 'axios';
+import axios from './../../config/Axios';
 import { useState, useEffect } from 'react'
 
 
@@ -17,8 +17,7 @@ function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, u
             postId: post_id,
             user: userId
         }
-        const user = JSON.parse(localStorage.getItem('user'));
-        axios.delete(process.env.REACT_APP_URL_API + ':3000/api/post/', { data: { params }, headers: { "Authorization": `Bearer ${user.token}` } })
+        axios.delete('/api/post/', { data: { params } })
             .then(() => { console.log("OK") })
             .catch(err => {
                 console.log(err)
@@ -27,7 +26,7 @@ function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, u
         document.location.reload(true)
     }
 
-    
+
 
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -74,7 +73,7 @@ function GetFeed({ post_id, avatar, firstName, lastName, cover, message, date, u
                     />
                 </div>
                 <div className="feed-layout-comment">
-                    <Comment 
+                    <Comment
                         postId={post_id}
                         commentMessage={commentMessage}
                     />

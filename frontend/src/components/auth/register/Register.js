@@ -53,7 +53,7 @@ class Register extends React.Component {
             }
             else {
                 document.getElementById('nom').classList.add('register-error')
-                this.setState({errorLastName: "Le nom est dans un mauvais format"})
+                this.setState({ errorLastName: "Le nom est dans un mauvais format" })
                 return false
             }
         }
@@ -116,8 +116,7 @@ class Register extends React.Component {
         }
 
         this.setState({ isLoading: true })
-        axios.post(process.env.REACT_APP_URL_API + ':3000/api/auth/register/',
-            { userRegister })
+        axios.post(process.env.REACT_APP_URL_API + ':3000/api/auth/register/', { userRegister })
             .then((res) => {
                 this.props.hidden(false);
             })
@@ -149,15 +148,15 @@ class Register extends React.Component {
                             :
                             <div className='register-form'>
                                 <form onSubmit={this.handleRegex}>
-                                        {this.state.errorLastName ? this.state.lastName : null}
+                                    {this.state.errorLastName ? this.state.lastName : null}
                                     <input aria-label="Nom" name="lastName" type="text" id="nom" placeholder="Nom" required value={this.lastName} onChange={this.handleChange} />
-                                        {this.state.errorFirstName ? this.state.errorFirstName : null}
+                                    {this.state.errorFirstName ? this.state.errorFirstName : null}
                                     <input aria-label="Prénom" name="firstName" type="text" id="prenom" placeholder="Prénom" required value={this.firstName} onChange={this.handleChange} />
-                                        {this.state.errorEmail ? this.state.errorEmail : null}
+                                    {this.state.errorEmail ? this.state.errorEmail : null}
                                     <input aria-label="email" name="email" type="email" id="email" placeholder="E-mail" required value={this.email} onChange={this.handleChange} />
-                                        {this.state.errorPassWord ? this.state.errorPassWord : null }
+                                    {this.state.errorPassWord ? this.state.errorPassWord : null}
                                     <input aria-label="Mot de passe" name="password" type="password" id="password" placeholder="Mot de passe" value={this.password} required onChange={this.handleChange} />
-                                        {this.state.errorCheckPassWord ? this.state.errorCheckPassWord : null}
+                                    {this.state.errorCheckPassWord ? this.state.errorCheckPassWord : null}
                                     <input aria-label="Vérifié le mot de passe" name="checkPassword" type="password" id="checkPassword" placeholder="Confirmation du mot de passe" value={this.checkPassword} required onChange={this.handleChange} />
 
                                     <input aria-label="Validé" type="submit" className='register-btn-submit' value='Envoyer' />

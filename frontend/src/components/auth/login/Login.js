@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "./../../config/Axios"
 import React from "react";
 import logoWithText from './../../../assets/icon-left-font-monochrome-white.svg';
 import Loader from "../../loader/Loader";
@@ -26,16 +26,15 @@ class Login extends React.Component {
         });
     }
 
-    handleSubmit(e) {
+     handleSubmit(e) {
         e.preventDefault();
         const user = {
             email: this.state.email,
             password: this.state.password
         }
-        this.setState({isLoading: true})
-        axios.post(process.env.REACT_APP_URL_API + ':3000/api/auth/login', {
-            user,
-        })
+        this.setState({ isLoading: true })
+        axios.post(process.env.REACT_APP_URL_API + ':3000/api/auth/login', 
+         { user })
             .then(res => {
 
                 let user = res.data;
@@ -46,13 +45,13 @@ class Login extends React.Component {
 
             })
             .catch(error => {
-                if(error.response === undefined){
-                    this.setState({ error: "Un problème est survenu, merci de réessayer ultérieurement."})
+                if (error.response === undefined) {
+                    this.setState({ error: "Un problème est survenu, merci de réessayer ultérieurement." })
                 }
-                else{
-                    
-                    this.setState({ 
-                    
+                else {
+
+                    this.setState({
+
                         error: error.response.data.message,
                         isLoading: false
                     })
@@ -74,21 +73,21 @@ class Login extends React.Component {
                         <img className='img' src={logoWithText} alt="Le logo Groupomania" />
                     </div>
                     <h1>Connexion</h1>
-                    {this.state.error === undefined ? 
-                    null
-                :
-                <p>{this.state.error}</p>
-                }
+                    {this.state.error === undefined ?
+                        null
+                        :
+                        <p>{this.state.error}</p>
+                    }
                     {this.state.isLoading ?
-                    <Loader />
-                :
+                        <Loader />
+                        :
                         <div className='login-form'>
                             <form onSubmit={this.handleSubmit}>
-                                <input autoComplete="email"  aria-label="email" name="email" type="email" placeholder="E-mail" value={this.state.email} onChange={this.handleChange} />
+                                <input autoComplete="email" aria-label="email" name="email" type="email" placeholder="E-mail" value={this.state.email} onChange={this.handleChange} />
                                 <input autoComplete="current-password" aria-label="mot de passe" name="password" type="password" placeholder='Mot de passe' value={this.state.password} onChange={this.handleChange} />
                                 <input aria-label="Se connecter" className='register-btn-submit' type="submit" value="Envoyer" />
                             </form>
-                        </div> }
+                        </div>}
                     <p>Vous n'avez pas de compte ?<br />Inscrivez-vous maintenant !</p>
                     <button aria-label="S'incrire" className='login-link' onClick={this.onTrigger}>S'inscrire</button>
                 </div>

@@ -10,7 +10,9 @@ exports.addLike = (req, res, next) => {
             if (result[0] == null) {
                 db.query('INSERT INTO likes (likes, userPostId, postId) VALUES (?, ?, ?)', [1, userId, post_id],
                     function (err, result) {
-                        if (err) throw err
+                        if (err) {
+                            res.status(400).json({ error: "Impossible de liker " })
+                        }
                         else {
                             res.status(200)
                         }
@@ -20,7 +22,9 @@ exports.addLike = (req, res, next) => {
             else {
                 db.query('DELETE FROM likes WHERE userPostId = ? AND postId = ?', [userId, post_id],
                     function (err, result) {
-                        if (err) throw err
+                        if (err) {
+                            res.status(400).json({ error: "Impossible de supprimé le like " })
+                        }
                     }
                 )
             }
@@ -29,8 +33,10 @@ exports.addLike = (req, res, next) => {
 
 exports.getLike = (req, res, next) => {
     db.query('SELECT * FROM likes', function (err, result) {
-        if(err) throw err
-        else{
+        if (err) {
+            res.status(400).json({ error: "Impossible de récupéré les likes " })
+        }
+        else {
             res.status(200).json(result)
         }
     })

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import {useState, useEffect} from 'react'
+import axios from './../../config/Axios';
+import { useState, useEffect } from 'react'
 import AvatarDefault from './../../../assets/avatar.png'
 
 function CommentForm({ user_id, post_id, commentId, firstName, lastName, avatar_path, commentMessage }) {
@@ -12,8 +12,10 @@ function CommentForm({ user_id, post_id, commentId, firstName, lastName, avatar_
             post_id: post_id,
             commentId: commentId
         }
-        const user = JSON.parse(localStorage.getItem('user'));
-        axios.delete(process.env.REACT_APP_URL_API + ':3000/api/comment/', { data: { params }, headers: { "Authorization": `Bearer ${user.token}` } })
+        axios.delete('/api/comment', { data: { params } })
+            .then(res => {console.log("goos")}
+                )
+            .catch(err => {console.log(err)})
         window.location.reload()
     }
     const user = JSON.parse(localStorage.getItem('user'));
@@ -36,7 +38,7 @@ function CommentForm({ user_id, post_id, commentId, firstName, lastName, avatar_
     return (
         <div className="comment-content">
             <div className="comment-box">
-                <img className="comment-author-img" src={ avatar_path === null ? AvatarDefault : avatar_path} alt={"Image de profile de " + firstName + " " + lastName} /> 
+                <img className="comment-author-img" src={avatar_path === null ? AvatarDefault : avatar_path} alt={"Image de profile de " + firstName + " " + lastName} />
                 <div className="comment-author-message">
                     <p>{firstName + ' ' + lastName}</p>
                     <p>{commentMessage}</p>
@@ -44,7 +46,7 @@ function CommentForm({ user_id, post_id, commentId, firstName, lastName, avatar_
                 {auth ? <button aria-label="Supprimé le post" className="btn-comment-trash" onClick={() => handleDelete(post_id, commentId)}>
                     <i className="bx bx-trash-alt"></i>
                 </button> : null}
-                
+
             </div>
 
         </div>

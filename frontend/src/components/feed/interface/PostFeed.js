@@ -1,22 +1,15 @@
-import axios from "axios";
+import axios from "./../../config/Axios";
 
 function PostFeed() {
 
     const postFeed = async () => {
         try {
-
-            const user = JSON.parse(localStorage.getItem('user'));
+            
             const formData = new FormData();
             formData.set("feed_image", document.getElementById('img').files[0])
             formData.set("postMessage", document.getElementById('sendMessageForm').value)
 
-            await axios.post(process.env.REACT_APP_URL_API + ':3000/api/post',
-                formData,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${user.token}`,
-                    }
-                })
+            await axios.post('/api/post',formData)
                 .then(res => {
                     console.log(res)
                 })

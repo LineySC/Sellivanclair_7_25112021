@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const helmet = require('helmet');
 
+
 //ROUTE
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -31,5 +32,6 @@ app.use('/api/auth', userRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/like', likeRoutes);
 app.use('/api/comment', commentRoutes);
+
 
 module.exports = app;

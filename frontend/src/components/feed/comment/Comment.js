@@ -1,5 +1,5 @@
 import './Like.css';
-import axios from 'axios';
+import axios from './../../config/Axios';
 import CommentForm from './CommentForm';
 
 
@@ -14,7 +14,6 @@ const Comment = ({ postId }) => {
 
 
     const PostComment = async () => {
-        const user = JSON.parse(localStorage.getItem('user'));
 
         const commentContent = document.getElementById('commentMessage').value
 
@@ -23,7 +22,7 @@ const Comment = ({ postId }) => {
             commentMessage: commentContent
         }
 
-        axios.post(process.env.REACT_APP_URL_API + ':3000/api/comment/' + postId, { comment }, { headers: { "Authorization": `Bearer ${user.token}` } })
+        axios.post('/api/comment/' + postId, { comment })
             .then(res => {
                 console.log(res)
             })
@@ -34,7 +33,7 @@ const Comment = ({ postId }) => {
 
     useEffect(() => {
         async function getComment() {
-            const res = await axios.get(process.env.REACT_APP_URL_API + ':3000/api/comment/' + postId)
+            const res = await axios.get('/api/comment/' + postId)
             const data = res.data;
             if (comments !== data) {
                 setComments((prevState) => [...prevState, ...data]);

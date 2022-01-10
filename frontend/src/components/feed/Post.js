@@ -1,5 +1,5 @@
 import './../../styles/Post.css';
-import axios from 'axios';
+import axios from './../config/Axios';
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -22,9 +22,8 @@ class Post extends React.Component {
     }
 
     getFeed() {
-        const user = JSON.parse(localStorage.getItem('user'));
 
-        axios.get(process.env.REACT_APP_URL_API + ':3000/api/post', { headers: { "Authorization": `Bearer ${user.token}` } })
+        axios.get('/api/post')
             .then((res) => {
                 this.setState({
                     feed: res.data.reverse(),
@@ -34,9 +33,10 @@ class Post extends React.Component {
             })
             .catch((err) => {
                 if (err.response === undefined) {
-
+                    
                 }
                 else {
+                    console.log(err)
                     this.setState({
                         isLoading: true,
                         hasError: true,

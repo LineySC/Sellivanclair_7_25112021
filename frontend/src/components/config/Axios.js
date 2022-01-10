@@ -1,25 +1,23 @@
 import axios from 'axios';
 
-function AxiosToken(){
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 
-    if (localStorage.getItem('user') == null) {
-        return false
+const instance = axios.create({
+    baseURL: `${process.env.REACT_APP_URL_API}:3000`,
+    timeout: 10000
+})
+
+instance.interceptors.request.use(response => {
+    if(
+        response.url.includes('post') ||
+        response.url.includes('comment') ||
+        response.url.includes('profil')
+    ) {
+        const user = JSON.parse(localStorage.getItem("user"))
+        response.headers['Authorization'] = `Bearer ${user.token}`
     }
-    else {
-        const local = JSON.parse(localStorage.getItem('user'))
-        const userToken = local.token
-        return userToken
-    }
+    return response
+})
 
-    
-}
-/*
-export default {
-
-    const token = AxiosToken(),
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token.token}`,
-    axios.defaults.timeout = 6000
-}
-*/
-
-
+export default instance
