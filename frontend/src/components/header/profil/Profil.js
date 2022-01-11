@@ -43,7 +43,7 @@ function Profil() {
 
         axios.put(`/api/auth/profil/${user.id}`, formData)
             .then((res) => {
-                console.log("Reussi" + res)
+                console.log(res)
                 setIsloading(false)
                 setIsModify(true)
 
@@ -52,7 +52,7 @@ function Profil() {
                 //console.log(err.response.data)
                 setIsloading(true)
                 setIsModify(false)
-
+                console.log(err)
             })
 
     }

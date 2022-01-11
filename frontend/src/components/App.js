@@ -1,10 +1,7 @@
 import './../styles/App.css';
-
 import Auth from './auth/Auth';
 import RoutesURL from './config/Routes';
-
 import React from 'react';
-
 import 'boxicons';
 
 function getToken() {
@@ -21,9 +18,6 @@ function getToken() {
 }
 
 function App() {
-
-
-    // THEME
     
     const token = getToken();
 

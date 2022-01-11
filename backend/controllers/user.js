@@ -240,7 +240,7 @@ exports.deleteUser = (req, res, next) => {
     db.query('SELECT * FROM user WHERE id = ?', [userId],
         function (err, result) {
             console.log(result)
-            if(err) {
+            if (err) {
                 res.status(400).json({ error: "Impossible de supprimé le profil " })
             }
             else if (result[0].avatar_path == null) {

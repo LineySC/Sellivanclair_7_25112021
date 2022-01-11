@@ -1,4 +1,4 @@
-import axios from 'axios';
+import instance from './../../config/Axios';
 import React from 'react';
 import logoWithText from './../../../assets/icon-left-font-monochrome-white.svg';
 import Loader from './../../loader/Loader'
@@ -116,7 +116,9 @@ class Register extends React.Component {
         }
 
         this.setState({ isLoading: true })
-        axios.post(process.env.REACT_APP_URL_API + ':3000/api/auth/register/', { userRegister })
+
+        instance.post('/api/auth/register', 
+        { userRegister })
             .then((res) => {
                 this.props.hidden(false);
             })

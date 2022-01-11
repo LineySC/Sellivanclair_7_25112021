@@ -7,7 +7,10 @@ exports.addLike = (req, res, next) => {
     db.query('SELECT * FROM likes where userPostId = ? AND postId = ?',
         [userId, post_id],
         function (err, result, field) {
-            if (result[0] == null) {
+            if(err){
+                res.status(500).json({error: "Un problème est survenue "})
+            }
+            else if (result[0] == null) {
                 db.query('INSERT INTO likes (likes, userPostId, postId) VALUES (?, ?, ?)', [1, userId, post_id],
                     function (err, result) {
                         if (err) {

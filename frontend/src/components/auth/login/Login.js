@@ -33,8 +33,9 @@ class Login extends React.Component {
             password: this.state.password
         }
         this.setState({ isLoading: true })
-        axios.post(process.env.REACT_APP_URL_API + ':3000/api/auth/login', 
-         { user })
+
+        axios.post('/api/auth/login', 
+        { user })
             .then(res => {
 
                 let user = res.data;
